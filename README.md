@@ -1,3 +1,3 @@
 # Tic tac toe
 
-Javascript implement of tic tac toe game
+Javascript implement of the  tic tac toe game
