@@ -1,10 +1,77 @@
+<!-- <script type="module" src="./main.js"></script> -->
+
+
 <!DOCTYPE html>
-<html lang ="en">
-<head>
-    <title>Tic tac toe js</title>
-</head>
-<body>
-    <h1>Tic tac toe js</h1>
-    <script type="module" src="./main.js"></script>
-</body>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+  <script type="application/javascript">
+
+    document.createSvg = function(tagName) {
+      let svgNS = "scg";
+      return this.createElementNS(svgNS, tagName);
+    };
+
+    let numberPerSide = 20;
+    let size = 10;
+    let pixelsPerSide = 400;
+
+
+
+    let grid = function(numberPerSide, size, pixelsPerSide, colors) {
+      let svg = document.createSvg("svg");
+      svg.setAttribute("width", pixelsPerSide);
+      svg.setAttribute("height", pixelsPerSide);
+      svg.setAttribute("viewBox", [0, 0, numberPerSide * size, numberPerSide * size].join(" "));
+
+      for(let i = 0; i < numberPerSide; i++) {
+          for(let j = 0; j < numberPerSide; j++) {
+            let color1 = colors[(i+j) % colors.length];
+            let color2 = colors[(i+j+1) % colors.length];  
+            let g = document.createSvg("g");
+            g.setAttribute("transform", ["translate(", i*size, ",", j*size, ")"].join(""));
+            let number = numberPerSide * i + j;
+            let box = document.createSvg("rect");
+            box.setAttribute("width", size);
+            box.setAttribute("height", size);
+            box.setAttribute("fill", color1);
+            box.setAttribute("id", "b" + number); 
+            g.appendChild(box);
+            let text = document.createSvg("text");
+            text.appendChild(document.createTextNode(i * numberPerSide + j));
+            text.setAttribute("fill", color2);
+            text.setAttribute("font-size", 6);
+            text.setAttribute("x", 0);
+            text.setAttribute("y", size/2);
+            text.setAttribute("id", "t" + number);
+            g.appendChild(text);
+            svg.appendChild(g);
+          }  
+      }
+      svg.addEventListener(
+          "click",
+          function(e){
+              let id = e.target.id;
+              if(id)
+                  alert(id.substring(1));
+          },
+        false);
+      return svg;
+    };
+
+    let container = document.getElementById("container");
+    container.appendChild(grid(5, 10, 200, ["red", "white"]));
+    container.appendChild(grid(3, 10, 200, ["white", "black", "yellow"]));
+    container.appendChild(grid(7, 10, 200, ["blue", "magenta", "cyan", "cornflowerblue"]));
+    container.appendChild(grid(2, 8, 200, ["turquoise", "gold"]));
+  </script>
+  <style>
+    canvas {
+      border: 4px;
+      background-color:wheat;
+    }
+  </style>
+ </head>
+ <body>
+ </body>
 </html>

@@ -18,29 +18,24 @@ export class Board {
     }
 
     get_cell(x, y) {
-        return this.#cells[x * this._height + y];
+        return this.#cells[x * this.#height + y];
     }
 
     set_cell(x, y , value) {
-        this.#cells[x * this._height + y] = value;
+        this.#cells[x * this.#height + y] = value;
     }
 
     display() {
         let value;
         let buffer = ' ';
-        for (let y = 0; y < this._height; y++) {
-            for (let x = 0; x < this._length; x++) {
-                value = this.#cells[x * this._height + y]
+        for (let y = 0; y < this.#height; y++) {
+            for (let x = 0; x < this.#length; x++) {
+                value = this.#cells[x * this.#height + y]
                 buffer += value.toString();
             }
             console.log(buffer)
             buffer = ' ';
         }
-    }
-
-    #diplay_canvas() {
-        
-
     }
 
     _clear() {
